@@ -1,0 +1,205 @@
+@CHARSET "UTF-8";
+
+input[type="search"] {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+  -webkit-appearance: textfield;
+
+    width: 40%!important;
+    height: 50px;
+    border-radius: 10px 0px 0px 10px;
+    border: none;
+    text-align: center;
+    vertical-align: bottom;
+  	color:black;
+  
+}
+
+button,
+html input[type="button"],
+input[type="reset"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+
+	height: 51.9px;
+    width: 10%;
+    background: #00BD4B;
+    color: white;
+    border: none;
+    border-radius: 0 10px 10px 0;
+    margin-top: 0;
+    padding: 0;
+    margin-left: -5px;
+
+}
+
+button,
+html input[type="button"],
+input[type="submit"] {
+	
+	-webkit-appearance: button;
+    cursor: pointer;
+	height: 51.9px;
+    width: 10%;
+    background: #00BD4B;
+    color: white;
+    border: none;
+    border-radius: 10px 10px 10px 10px;
+    margin-top: 0;
+    padding: 0;
+    margin-left: -5px;
+}
+
+button,
+input[type="submit"].searchsubmit{
+		
+	-webkit-appearance: button;
+    cursor: pointer;
+	height: 51.9px;
+    width: 10%;
+    background: #00BD4B;
+    color: white;
+    border: none;
+    border-radius: 0px 10px 10px 0px;
+    margin-top: 0;
+    padding: 0;
+    margin-left: -5px;
+}
+
+.panel-default {
+    margin-top: 35%;
+    border-color: #ddd;
+}
+
+
+.ul.loginfieldset li {
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 9px 0 13px;
+}
+
+.btn-success.join {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    margin-left:40%
+}
+
+.panel-body .login ul{
+	display: block;
+    margin: 5px 5px 5px 3px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    -webkit-padding-start: 0px;
+}
+
+.panel-body .login li{
+	display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 9px 0 9px;
+}
+
+.table-board {
+	text-align: center;
+	border: 1px solid #dddddd;
+	margin-top: 70px;
+}
+
+.table-board th{
+	text-align: center;
+    background-color: #eeeeee;
+}
+
+.nav>li {
+    position: relative;
+    display: inline-block;
+}
+
+.btn-success.userModifybtn {
+        -webkit-appearance: button;
+    cursor: pointer;
+    height: 51.9px;
+    width: 48%;
+    background: #00BD4B;
+    color: white;
+    border: none;
+    border-radius: 10px 10px 10px 10px;
+    margin-top: 0;
+    padding: 0;
+    margin-left: 0px;
+}
+
+.btn-success.userDeletebtn {
+        -webkit-appearance: button;
+    cursor: pointer;
+    height: 51.9px;
+    width: 48%;
+    background: #00BD4B;
+    color: white;
+    border: none;
+    border-radius: 10px 10px 10px 10px;
+    margin-top: 0;
+    padding: 0;
+    margin-left: 10px;
+}
+
+.write{
+	margin-right: -15px;
+    margin-left: -15px;
+	padding-top: 100px;
+}
+
+input#joinId.form-control{
+    width: 58%;
+    display: -webkit-inline-box;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+input#joinIdBtn.form-control{
+	-webkit-appearance: button;
+    display: -webkit-inline-box;
+    cursor: pointer;
+    height: 38.9px;
+    width: 38%;
+    background: #A0A0A0;
+    color: white;
+    border: none;
+    border-radius: 10px 10px 10px 10px;
+    margin-top: 0;
+    padding: 0;
+    margin-left: 10px;
+
+}
+
+.youtubeWrap {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%;
+}
+
+.youtubeWrap iframe {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+    
