@@ -15,6 +15,8 @@ public class UserRegisterCheckServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		String userId = request.getParameter("userId");
+		if(userId == null || userId.equals("")) response.getWriter().write("-1");
+		
 		response.getWriter().write(new UserDAO().registerCheck(userId)+ "");
 	}
 

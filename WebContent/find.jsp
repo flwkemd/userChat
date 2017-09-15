@@ -2,6 +2,21 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+	<%
+		String userId = null;
+		
+		if (session.getAttribute("userId") != null){
+			userId = (String) session.getAttribute("userId");
+		}
+		
+		if(userId == null){
+			session.setAttribute("messageType", "오류 메시지");
+			session.setAttribute("messageContent", "현재 로그인이 되어있지 않습니다.");
+			response.sendRedirect("login.jsp");
+			
+			return;
+		}
+	%>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,21 +26,45 @@
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 		
+	<script type="text/javascript">
+		function findFunction(){
+			var userId = $('#findId').val();
+			$.ajax({
+				type: "POST",
+				url: './UserRegisterCheckServlet',
+				data: {userId : userId},
+				success: function(result){
+					if(result == 0){
+						$('#checkMessage').html('친구 찾기에 성공했습니다.');
+						$('#checkType').attr('class', 'modal-content panel-success');
+						getFriend(userId);
+					}else{
+						$('#checkMessage').html('친구를 찾을 수 없습니다.');
+						$('#checkType').attr('class', 'modal-content panel-warning');
+						failFriend();
+					}
+					$('#checkModal').modal("show");
+				}
+			});
+		}
+		function getFriend(findId){
+			$('#friendResult').html('<thead>'+
+					'<tr>' +
+					'<th><h4>검색 결과</h4></th>' +
+					'</thead>' +
+					'<tbody>' +
+					'<tr>' +
+					'<td style="text-align: center;"><h3>' + findId + '</h3><a href="chat.jsp?toId=' +encodeURIComponent(findId) + '"class="btn btn-primary pull-right">' + '메시지 보내기</a></td>'+
+					'</tr>' +
+					'</tbody>');
+		}
+		function failFriend(){
+			$('#friendResult').html('');
+		}
+	</script>	
 </head>
 <body>
-	<%
-		String userId = null;
-		if (session.getAttribute("userId") != null){
-			userId = (String) session.getAttribute("userId");
-		}
-		if(userId != null){
-			session.setAttribute("messageType", "오류 메시지");
-			session.setAttribute("messageContent", "현재 로그인이 되어 있는 상태입니다.");
-			response.sendRedirect("index.jsp");
-			return;
-		}
-		
-	%>
+
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
@@ -40,53 +79,43 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="index.jsp">메인</a>
-				<li><a href="find.jsp">친구 찾기</a>				
+				<li class="active"><a href="find.jsp">친구 찾기</a>				
 			</ul>
-			<%
-				if(userId == null){
-			%>
-			<ul class="nav navbar-nav navbar-right">
+
+				<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="buton" aria-haspopup="true"
-						aria-expanded="false">접속하기<span class="caret"></span>
-						<ul class="dropdown-menu">
-							<li class="active"><a href="login.jsp">로그인</a></li>
-							<li><a href="join.jsp">회원가입</a></li>
-						</ul>
+						aria-expanded="false">회원관리<span class="caret"></span>
 					</a>
+					<ul class="dropdown-menu">
+						<li><a href="logoutAction.jsp">로그아웃</a></li>
+					</ul>
 				</li>
 			</ul>
-			<%
-				}
-			%>
 		</div>
 	</nav>
 	<div class="container">
-		<form method="post" action="./userLogin">
-			<table class="table table-bordered table-hover" style="text-align: center; border: 1px solid #dddddd">
-				<thead>
-					<tr>
-						<th colspan="2"><h4>로그인 양식</h4></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td style="width: 110px;"><h5>아이디</h5></td>
-						<td><input class="form-control" type="text" name="userId" maxlength="20" placeholder="아이디를 입력하세요"></td>
-					</tr>
-					<tr>
-						<td style="width: 110px;"><h5>비밀번호</h5></td>
-						<td><input class="form-control" type="password" name="userPassword" maxlength="20" placeholder="비밀번호를 입력하세요"></td>
-					</tr>
-					<tr>
-						<td style="text-align: left" colspan="2"><input class="btn btn-primary pull-right" type="submit" value="로그인"></td>
-					</tr>
-				</tbody>
-			</table>
-		</form>
+		<table class="table table-bordered table-hover" style="text-align: center; border: 1px solid #dddddd";>
+			<thead>
+				<tr>
+					<th colspan="2"><h4>검색으로 친구 찾기</h4></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="width: 110px;"><h5>친구 아이디</h5></td>
+					<td><input class="form-control" type="text" id="findId" maxlength="20" placeholder="찾을 아이디를 입력하세요."></td>
+				</tr>
+				<tr>
+					<td colspan="2"><button class="btn btn-primary pull-right" onclick="findFunction();">검색</button></td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
-	
+	<div class="container">
+		<table id="friendResult" class="table table-bordered table-hover" style="text-align: center; border: 1px solid #dddddd;"></table>
+	</div>
 	<%
 		String messageContent = null;
 		
@@ -131,7 +160,7 @@
 		session.removeAttribute("messageType");		
 		}
 	%>	
-	<div class="modal fade" id="checkModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal fade" id="checkModal" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="vertical-alignment-helper">
 			<div class="modal-dialog vertical-align-center">
 				<div id="checkType" class="modal-content panel-info"></div>
@@ -152,5 +181,6 @@
 					</div>
 				</div>
 			</div>
+
 </body>
 </html>
