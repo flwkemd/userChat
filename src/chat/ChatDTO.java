@@ -1,6 +1,7 @@
 package chat;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class ChatDTO {
 	
@@ -8,7 +9,7 @@ public class ChatDTO {
 	String fromId;
 	String toId;
 	String chatContent;
-	Date chatTime;
+	Timestamp chatTime;
 	
 	public int getChatId() {
 		return chatId;
@@ -34,10 +35,10 @@ public class ChatDTO {
 	public void setChatContent(String chatContent) {
 		this.chatContent = chatContent;
 	}
-	public Date getChatTime() {
+	public Timestamp getChatTime() {
 		return chatTime;
 	}
-	public void setChatTime(Date chatTime) {
+	public void setChatTime(Timestamp chatTime) {
 		this.chatTime = chatTime;
 	}
 	

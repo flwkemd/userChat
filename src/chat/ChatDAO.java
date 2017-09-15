@@ -47,9 +47,9 @@ public class ChatDAO {
 				ChatDTO chat = new ChatDTO();
 				chat.setChatId(rs.getInt("chatId"));
 				chat.setFromId(rs.getString("fromId").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
-				chat.setToId(rs.getString("fromId").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
-				chat.setChatContent(rs.getString("fromId").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
-				Timestamp chatTime = rs.getTimestamp("chatTime");
+				chat.setToId(rs.getString("toId").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
+				chat.setChatContent(rs.getString("chatContent").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
+				chat.setChatTime(rs.getTimestamp("chatTime"));
 				chatList.add(chat);
 			}
 		}catch (Exception e) {
@@ -66,7 +66,7 @@ public class ChatDAO {
 		 return chatList; //리스트 반환
 	}
 	
-	public ArrayList<ChatDTO> getChatListByRecent(String fromId, String toId, String chatId, int number){
+	public ArrayList<ChatDTO> getChatListByRecent(String fromId, String toId, int number){
 		ArrayList<ChatDTO> chatList = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -88,9 +88,9 @@ public class ChatDAO {
 				ChatDTO chat = new ChatDTO();
 				chat.setChatId(rs.getInt("chatId"));
 				chat.setFromId(rs.getString("fromId").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
-				chat.setToId(rs.getString("fromId").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
-				chat.setChatContent(rs.getString("fromId").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
-				Timestamp chatTime = rs.getTimestamp("chatTime");
+				chat.setToId(rs.getString("toId").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
+				chat.setChatContent(rs.getString("chatContent").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
+				chat.setChatTime(rs.getTimestamp("chatTime"));
 				chatList.add(chat);
 			}
 		}catch (Exception e) {

@@ -71,7 +71,61 @@
 			});
 				$('#chatContent').val('');
 		}
-	
+		var lastId = 0; //마지막 채팅 아이디
+		
+		function chatListFunction(type){
+			var fromId = '<%= userId %>';
+			var toId = '<%= toId %>';
+			
+			$.ajax({
+				type: "POST",
+				url: "./chatListServlet",
+				data: {
+					fromId: encodeURIComponent(fromId),
+					toId: encodeURIComponent(toId),
+					listType: type
+				},
+				success: function(data){
+					if(data == "") return;
+					var parsed = JSON.parse(data);
+					var result = parsed.result;
+					for(var i=0; i<result.length; i++){
+						addChat(result[i][0].value, result[i][2].value, result[i][3].value);
+					}
+					lastId = Number(parsed.last);
+				}
+			});
+		}
+		function addChat(chatName, chatContent, chatTime){
+			$('#chatList').append('<div class="row">' +
+					'<div class="col-lg-12">' +
+					'<div class="media">' +
+					'<a class="pull-left" href="#">' +
+					'<img class="media-object img-circle" style="width: 30px; height: 30px;" src="images/icon.png" alt="">' +
+					'</a>' +
+					'<div class="media-body">' +
+					'<h4 class="media-heading">' +
+					chatName +
+					'<span class="small pull-right">' +
+					chatTime +
+					'</span>' +
+					'</h4>' +
+					'<p>' +
+					chatContent +
+					'</p>' +
+					'</div>' +
+					'</div>' +
+					'</div>' +
+					'</div>' +
+					'<hr>');
+			 $('#chatList').scrollTop($('#chatList')[0].scrollHeight); 
+		}
+		function getInfiniteChat(){
+			setInterval(function(){
+				chatListFunction(lastId);
+			}, 3000);
+		}
+		
 	</script>
 		
 </head>
@@ -122,7 +176,7 @@
 				<div class="clearfix"></div>
 			</div>
 			<div id="chat" class="panel-collapse collapse in">
-				<div id="chatlist" class="portlet-body chat-widget" style="overflow-y: auto; width: auto; height: 600px;">
+				<div id="chatList" class="portlet-body chat-widget" style="overflow-y: auto; width: auto; height: 600px;">
 				</div>
 				<div class="portlet-footer">
 					<div class="row" style="height: 90px;">
@@ -186,6 +240,7 @@
 			</div>
 		<script>
 			$('#messageModal').modal("show");
+
 		</script>
 		
 	<%		
@@ -193,6 +248,11 @@
 		session.removeAttribute("messageType");		
 		}
 	%>	
-
+	<script type="text/javascript">
+		$(document).ready(function(){
+			chatListFunction('ten');
+			getInfiniteChat();
+		});
+	</script>
 </body>
 </html>
